@@ -1,6 +1,6 @@
 package com.codeup.blog.springbootblog.services;
 
-import com.codeup.blog.springbootblog.models.Posts;
+import com.codeup.blog.springbootblog.models.Post;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -8,35 +8,39 @@ import java.util.List;
 
 @Service("PostSvc")
 public class PostSvc {
-    private List<Posts> posts = new ArrayList<>();
+    private List<Post> posts;
 
     public PostSvc() {
+        posts = new ArrayList<>();
         hardcode();
     }
 
-    public List<Posts> showAll() {
+    public List<Post> showAll() {
         return posts;
     }
 
-    public Posts showOne(Long id) {
-        return posts.get((int) (id - 1));
+    public Post showOne(Integer id) {
+        return posts.get((id - 1));
     }
 
-    public Posts save(Posts post) {
+    public void save(Post post) {
         post.setId((long) (posts.size() + 1));
         posts.add(post);
-        return post;
     }
 
     public void createPost(String title, String body) {
-        Posts post = new Posts(title, body);
+        Post post = new Post(title, body);
         posts.add(post);
     }
 
-    public List<Posts> hardcode() {
-        Posts post = new Posts("a title", "a body", 1L);
-        Posts post2 = new Posts("2 title", "2 body", 2L);
-        Posts post3 = new Posts("3 title", "3 body", 3L);
+    public void update (Post post) {
+        posts.set((int)(post.getId()-1), post);
+    }
+
+    public List<Post> hardcode() {
+        Post post = new Post("a title", "a body", 1L);
+        Post post2 = new Post("2 title", "2 body", 2L);
+        Post post3 = new Post("3 title", "3 body", 3L);
         posts.add(post);
         posts.add(post2);
         posts.add(post3);
