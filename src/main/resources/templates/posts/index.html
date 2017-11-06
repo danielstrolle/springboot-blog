@@ -5,13 +5,9 @@
     <title>Title</title>
 </head>
 <body>
-<nav th:fragment="main-navbar">
-    <ul>
-        <li>Home</li>
-        <li>Login</li>
-        <li>Register</li>
-        <li>Logout</li>
-    </ul>
-</nav>
+<div th:each="post : ${posts}">
+    <h1 th:text="${post.title}"></h1>
+    <h2 th:text="${post.body}"></h2>
+</div>
 </body>
 </html>

@@ -11,7 +11,9 @@
 <div th:if="${error==null}">
     <h1>The Results are in...</h1>
     <h2>You guessed <span th:text="${guess}"></span></h2>
-    <h2>The roll was a <span th:text="${diceroll}"></span></h2>
+    <h3>The first roll was a <span th:text="${diceroll1}"></span></h3>
+    <h3>The second roll was a <span th:text="${diceroll2}"></span></h3>
+    <h3>The third roll was a <span th:text="${diceroll3}"></span></h3>
     <h2 th:text="${match}"></h2>
     <button><a href="/roll-dice">Play Again?</a></button>
 </div>
