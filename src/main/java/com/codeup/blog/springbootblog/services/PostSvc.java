@@ -1,50 +1,43 @@
 package com.codeup.blog.springbootblog.services;
 
 import com.codeup.blog.springbootblog.models.Post;
+import com.codeup.blog.springbootblog.repositories.PostsRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
 
 @Service("PostSvc")
 public class PostSvc {
-    private List<Post> posts;
+    private final PostsRepository postsDao;
 
-    public PostSvc() {
-        posts = new ArrayList<>();
-        hardcode();
+    @Autowired
+    public PostSvc(PostsRepository postsDao) {
+        this.postsDao = postsDao;
     }
 
-    public List<Post> showAll() {
-        return posts;
+    public Iterable<Post> showAll() {
+        return postsDao.findAll();
     }
 
-    public Post showOne(Integer id) {
-        return posts.get((id - 1));
+    public Post showOne(long id) {
+        return postsDao.findOne(id);
     }
 
     public void save(Post post) {
-        post.setId((long) (posts.size() + 1));
-        posts.add(post);
+        postsDao.save(post);
     }
 
     public void createPost(String title, String body) {
         Post post = new Post(title, body);
-        posts.add(post);
+        postsDao.save(post);
     }
 
     public void update (Post post) {
-        posts.set((int)(post.getId()-1), post);
+        postsDao.save(post);
     }
 
-    public List<Post> hardcode() {
-        Post post = new Post("a title", "a body", 1L);
-        Post post2 = new Post("2 title", "2 body", 2L);
-        Post post3 = new Post("3 title", "3 body", 3L);
-        posts.add(post);
-        posts.add(post2);
-        posts.add(post3);
-        return posts;
+    public void delete (long id) {
+        postsDao.delete(id);
     }
 
 }

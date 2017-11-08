@@ -5,6 +5,7 @@
     <title>Title</title>
 </head>
 <body>
+<nav th:replace="fragments/navbar :: main-navbar"></nav>
 <div th:each="post : ${posts}">
     <h1>
         <a th:href="${'/posts/' + post.id}" th:text="${post.title}"></a>
@@ -13,6 +14,9 @@
     <button>
         <a th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>
     </button>
+    <form method="post" th:action="${'/posts/' + post.id + '/delete'}" class="col-md-6">
+        <input class="btn btn-block btn-danger" type="submit" value="Delete This Post" />
+    </form>
 </div>
 </body>
 </html>

@@ -1,13 +1,23 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-<div>
+<nav th:replace="fragments/navbar :: main-navbar"></nav>
+<div class="container">
     <h1 th:text="${post.title}"></h1>
     <h2 th:text="${post.body}"></h2>
+    <p th:text="${post.user.email}"></p>
+    <div class="row">
+        <div class="column-md-6">
+            <a th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>
+        </div>
+        <form method="post" th:action="${'/posts/' + post.id + '/delete'}" class="col-md-6">
+            <input class="btn btn-block btn-danger" type="submit" value="Delete This Post"/>
+        </form>
+    </div>
 </div>
 </body>
 </html>

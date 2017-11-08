@@ -1,21 +1,23 @@
 package com.codeup.blog.springbootblog.controllers;
 
 import com.codeup.blog.springbootblog.models.Post;
+import com.codeup.blog.springbootblog.models.User;
+import com.codeup.blog.springbootblog.repositories.UsersRepository;
 import com.codeup.blog.springbootblog.services.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @Controller
 public class PostsController {
     private final PostSvc postSvc;
+    private final UsersRepository userDao;
 
     @Autowired
-    public PostsController(PostSvc postSvc) {
+    public PostsController(PostSvc postSvc, UsersRepository userDao) {
         this.postSvc = postSvc;
+        this.userDao = userDao;
     }
 
     @GetMapping("/posts")
@@ -49,8 +51,11 @@ public class PostsController {
 //        model.addAttribute("posts", posts);
 
         // pass the list to view
-        List<Post> allPosts = postSvc.showAll();
-        model.addAttribute("posts", allPosts);
+//        Iterable<Post> allPosts = postSvc.showAll();
+//        model.addAttribute("posts", allPosts);
+
+        model.addAttribute("posts", postSvc.showAll());
+
         return "posts/index";
     }
 
@@ -77,6 +82,9 @@ public class PostsController {
 
     @PostMapping("/posts/create")
     public String submitCreateForm(@ModelAttribute Post post) {
+        User user = userDao.findOne(1L);
+        post.setUser(user);
+        // NEED TO FIND A WAY TO ASSIGN THE USER TO THE POST BEFORE SAVING IT
         postSvc.save(post);
         return "redirect:/posts";
     }
@@ -88,9 +96,21 @@ public class PostsController {
         return "posts/edit";
     }
 
-    @PostMapping ("/posts/{id}/edit")
-    public String submitEditForm (@PathVariable long id, @ModelAttribute Post post) {
+    @PostMapping("/posts/{id}/edit")
+    public String submitEditForm(@PathVariable long id, @ModelAttribute Post post) {
         postSvc.update(post);
+        return "redirect:/posts";
+    }
+
+//    @GetMapping("/posts/{id}/delete")
+//    public String deletePost(@PathVariable long id) {
+//        postSvc.delete(id);
+//        return "redirect:/posts";
+//    }
+
+    @PostMapping("/posts/{id}/delete")
+    public String deletePost(@PathVariable long id) {
+        postSvc.delete(id);
         return "redirect:/posts";
     }
 }
