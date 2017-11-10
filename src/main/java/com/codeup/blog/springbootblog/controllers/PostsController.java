@@ -5,6 +5,7 @@ import com.codeup.blog.springbootblog.models.User;
 import com.codeup.blog.springbootblog.repositories.UsersRepository;
 import com.codeup.blog.springbootblog.services.PostSvc;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -82,7 +83,7 @@ public class PostsController {
 
     @PostMapping("/posts/create")
     public String submitCreateForm(@ModelAttribute Post post) {
-        User user = userDao.findOne(1L);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         // NEED TO FIND A WAY TO ASSIGN THE USER TO THE POST BEFORE SAVING IT
         postSvc.save(post);
