@@ -1,29 +1,51 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">>
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head>
     <meta charset="UTF-8"/>
     <title>Title</title>
 </head>
 <body>
-<nav th:fragment="main-navbar">
-    <ul>
-        <li>Home</li>
-        <li sec:authorize="!isAuthenticated()">
-            <a href="/login">Log-In</a>
-        </li>
-        <li sec:authorize="!isAuthenticated()">
-            <a href="/register">Register</a>
-        </li>
-        <li sec:authorize="isAuthenticated()">
-            <form th:action="@{/logout}" th:method="post">
-                <button class="btn-link btn" style="margin-top: 8px">Logout</button>
-            </form>
-        </li>
-        <li>
-            <a href="/posts/create">Create New Post</a>
-        </li>
-    </ul>
+<nav th:fragment="main-navbar" class="navbar navbar-default">
+    <div class="container-fluid">
+
+        <ul class="nav navbar-nav">
+            <!--<div class="navbar-header">-->
+            <!--<a class="navbar-brand" href="/posts">-->
+            <!--<img alt="Brand" src="...">-->
+            <!--</a>-->
+            <!--</div>-->
+            <li role="presentation">
+                <a href="/posts">View All Posts</a>
+            </li>
+
+            <li role="presentation" sec:authorize="!isAuthenticated()">
+                <a href="/login">Log-In</a>
+            </li>
+
+            <li role="presentation" sec:authorize="!isAuthenticated()">
+                <a href="/register">Register</a>
+            </li>
+
+            <li role="presentation" sec:authorize="isAuthenticated()">
+                <a href="/posts/create">Create New Post</a>
+            </li>
+
+            <li role="presentation" sec:authorize="isAuthenticated()">
+                <form th:action="@{/logout}" th:method="post" class="navbar-form">
+                    <div class="form-group">
+                        <button class="btn-link btn">Logout</button>
+                    </div>
+                </form>
+            </li>
+
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+            <li role="presentation" sec:authorize="isAuthenticated()" class="nav navbar-text navbar-right">
+                Welcome <span th:text="${#authentication.principal.username}"/>!
+            </li>
+        </ul>
+    </div>
 </nav>
 </body>
 </html>

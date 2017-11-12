@@ -5,17 +5,35 @@
 <body>
 <nav th:replace="fragments/navbar :: main-navbar"></nav>
 <div class="container">
-    <h1 th:text="${post.title}"></h1>
-    <h2 th:text="${post.body}"></h2>
-    <p th:text="${post.user.email}"></p>
     <div class="row">
-        <div class="column-md-6">
-            <a th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>
+        <div class="col-xs-4 col-xs-offset-4 display-post">
+            <h1 th:text="${post.title}"></h1>
+            <h2 th:text="${post.body}"></h2>
+            <p th:text="${post.user.email}"></p>
         </div>
-        <form method="post" th:action="${'/posts/' + post.id + '/delete'}" class="col-md-6">
-            <input class="btn btn-block btn-danger" type="submit" value="Delete This Post"/>
-        </form>
+    </div>
+    <div class="row">
+        <div class="col-xs-2 col-xs-offset-5">
+                <a class="btn btn-block btn-primary" th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>
+
+            <form method="post" th:action="${'/posts/' + post.id + '/delete'}">
+                <input class="btn btn-block btn-danger" type="submit" value="Delete This Post"/>
+            </form>
+        </div>
     </div>
 </div>
+<!--<div>-->
+<!--<button>-->
+<!--<a th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>-->
+<!--</button>-->
+<!--</div>-->
+<!--<div>-->
+<!--<form method="post" th:action="${'/posts/' + post.id + '/delete'}" class="col-xs-3">-->
+<!--<input class="btn btn-block btn-danger" type="submit" value="Delete This Post"/>-->
+<!--</form>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<footer th:replace="fragments/footer :: main-footer"></footer>
 </body>
 </html>
