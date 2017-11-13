@@ -7,9 +7,11 @@
 <form th:action="@{/posts/create}" method="post" th:object="${post}">
     Title:
     <input th:field="*{title}" />
+    <p th:if="${#fields.hasErrors('title')}" th:errors="*{title}" />
     <br/>
     Body:
     <input th:field="*{body}" />
+    <p th:if="${#fields.hasErrors('body')}" th:errors="*{body}" />
     <br/>
     <input type="submit" />
 </form>

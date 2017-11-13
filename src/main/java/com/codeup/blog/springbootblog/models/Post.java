@@ -1,5 +1,8 @@
 package com.codeup.blog.springbootblog.models;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 
 
 @Entity
@@ -9,9 +12,12 @@ public class Post {
     private long id;
 
     @Column(nullable = false)
+    @NotBlank(message = "Title cannot be empty!")
+    @Size(min = 3, message = "Title must be AT LEAST 3 characters long!")
     private String title;
 
     @Column(nullable = false, columnDefinition = "TEXT")
+    @NotBlank(message = "Body cannot be empty!")
     private String body;
 
     @ManyToOne

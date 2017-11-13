@@ -8,7 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @Controller
 public class PostsController {
@@ -82,7 +85,13 @@ public class PostsController {
     }
 
     @PostMapping("/posts/create")
-    public String submitCreateForm(@ModelAttribute Post post) {
+    public String submitCreateForm(@Valid Post post, Errors notValid, Model model) {
+        if (notValid.hasErrors()) {
+            model.addAttribute(notValid);
+            model.addAttribute(post);
+            return "posts/create";
+        }
+
         User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         post.setUser(user);
         // NEED TO FIND A WAY TO ASSIGN THE USER TO THE POST BEFORE SAVING IT
