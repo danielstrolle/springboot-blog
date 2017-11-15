@@ -3,6 +3,128 @@ ul.nav.navbar-nav.navbar-right {
 }
 
 .display-post {
-    border: 2px solid black;
+    border: 2px solid white;
+    border-radius: 10px;
     text-align: center;
+    background-color: #9ec4ff;
+    margin-bottom: 20px;
+    padding: 25px;
+    font-family: 'Lora', serif;
+}
+
+.info {
+    text-align: center;
+    margin-bottom: 30px;
+    font-family: 'Lora', serif;
+}
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    margin-bottom: 60px; /* Margin bottom by footer height */
+}
+
+form {
+    border: 2px solid white;
+    font-family: 'Lora', serif;
+}
+
+.background-color {
+    background-color: #d1dede;
+    border: 2px solid #9ec4ff;
+    padding: 3em;
+}
+
+.way-back {
+    background-color: #b7c2c2;
+}
+
+.custom-nav {
+    background-color: #9ec4ff;
+    min-height: 75px;
+}
+
+.footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background-color: #f5f5f5;
+    text-align: center;
+}
+
+.form {
+    padding: 20px;
+    background-color: #9ec4ff;
+    border-radius: 10px;
+}
+
+.display-link {
+    color: #525252;
+}
+
+.navbar-link {
+    color: #525252;
+    font-size: 1.5em;
+    font-family: 'Lora', serif;
+}
+
+.top {
+    top: 10px;
+}
+
+.logout {
+    margin-top: .3em;
+}
+
+.submit {
+    background-color: #b7c2c2;
+    color: #525252;
+}
+
+.error {
+    color: #ff756d;
+    background-color: white;
+    border: 2px solid #ff756d;
+    padding: 10px;
+    border-radius: 15px;
+}
+
+#form {
+    border: none;
+    margin-top: 2px;
+}
+
+.navbar-brand {
+    color: #525252 !important;
+    font-size: 2em;
+    font-family: 'Lora', serif;
+    margin-top: 8px;
+}
+
+#brand {
+    color: #1d201f;
+}
+
+.title-banner {
+    text-align: center;
+    font-family: 'Pacifico', cursive;
+    padding: 2em;
+}
+
+.navbar {
+    margin-bottom: 0;
+    border: none;
+}
+
+img {
+    max-width:100%;
+    height:auto;
+}
+
+.title-text{
+    font-size: 3em;
+    word-wrap: break-word;
 }
