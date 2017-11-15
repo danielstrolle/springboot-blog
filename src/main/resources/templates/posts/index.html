@@ -23,11 +23,11 @@
                 <div th:each="post : ${posts}">
                     <div class="display-post index col-md-6 col-md-offset-0 col-xs-8 col-xs-offset-2">
                         <!--created on date??-->
-                        <h1>
-                            <a th:href="${'/posts/' + post.id}" th:text="${post.title}" class="display-link"></a>
-                        </h1>
-                        <h3 th:text="${post.subheading}" class="display-link">
-                        </h3>
+                        <h1 th:text="${post.title}" class="display-link"></h1>
+                        <h3 th:text="${post.subheading}" class="display-link"></h3>
+                        <p>
+                            <a th:href="${'/posts/' + post.id}">View Post</a>
+                        </p>
                     </div>
                 </div>
             </div>
