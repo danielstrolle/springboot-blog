@@ -1,8 +1,10 @@
 package com.codeup.blog.springbootblog.services;
 
 import com.codeup.blog.springbootblog.models.Post;
+import com.codeup.blog.springbootblog.models.User;
 import com.codeup.blog.springbootblog.repositories.PostsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 
@@ -24,11 +26,8 @@ public class PostSvc {
     }
 
     public void save(Post post) {
-        postsDao.save(post);
-    }
-
-    public void createPost(String title, String body) {
-        Post post = new Post(title, body);
+        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        post.setUser(user);
         postsDao.save(post);
     }
 
@@ -38,6 +37,17 @@ public class PostSvc {
 
     public void delete (long id) {
         postsDao.delete(id);
+    }
+
+    public boolean userMatch (User user) {
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof String) return  false;
+        User loggedIn = (User) principal;
+        if (user.getUsername().equals(loggedIn.getUsername())) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
