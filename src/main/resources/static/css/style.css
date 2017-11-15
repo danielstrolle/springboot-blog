@@ -1,5 +1,5 @@
 ul.nav.navbar-nav.navbar-right {
-    margin-right: 5px;
+    margin-bottom: 2em;
 }
 
 .display-post {
@@ -127,4 +127,13 @@ img {
 .title-text{
     font-size: 3em;
     word-wrap: break-word;
+}
+
+.navbar-collapse.collapse.in li {
+    background-color: white;
+    border: 1px solid black;
+}
+
+.navbar-nav {
+    margin: 0;
 }
