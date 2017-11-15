@@ -24,6 +24,11 @@ public class PostsController {
         this.userDao = userDao;
     }
 
+    @GetMapping("/home")
+    public String homePage() {
+        return "home/home";
+    }
+
     @GetMapping("/posts")
     public String postsIndex(Model model) {
 //        //3 different posts
@@ -72,6 +77,10 @@ public class PostsController {
 ////        post.setBody("a body");
 
         Post onePost = postSvc.showOne(id);
+        User postCreator = onePost.getUser();
+        if (postSvc.userMatch(postCreator)) {
+            model.addAttribute("editable", true);
+        }
         model.addAttribute("post", onePost);
 
         return "posts/show";
@@ -91,9 +100,6 @@ public class PostsController {
             model.addAttribute(post);
             return "posts/create";
         }
-
-        User user = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        post.setUser(user);
         // NEED TO FIND A WAY TO ASSIGN THE USER TO THE POST BEFORE SAVING IT
         postSvc.save(post);
         return "redirect:/posts";
@@ -107,20 +113,41 @@ public class PostsController {
     }
 
     @PostMapping("/posts/{id}/edit")
-    public String submitEditForm(@PathVariable long id, @ModelAttribute Post post) {
+    public String submitEditForm(@Valid Post post, Errors notValid, Model model) {
+        Post editPost = postSvc.showOne(post.getId());
+        User user = editPost.getUser();
+        if (!postSvc.userMatch(user)) {
+            return "redirect:/posts";
+        }
+        if (notValid.hasErrors()) {
+            model.addAttribute(notValid);
+            model.addAttribute(editPost);
+            return "/posts/edit";
+        }
+        post.setUser(user);
         postSvc.update(post);
         return "redirect:/posts";
     }
 
-//    @GetMapping("/posts/{id}/delete")
-//    public String deletePost(@PathVariable long id) {
-//        postSvc.delete(id);
-//        return "redirect:/posts";
-//    }
-
     @PostMapping("/posts/{id}/delete")
     public String deletePost(@PathVariable long id) {
+        Post editPost = postSvc.showOne(id);
+        User user = editPost.getUser();
+        if (!postSvc.userMatch(user)) {
+            return "redirect:/posts";
+        }
         postSvc.delete(id);
         return "redirect:/posts";
+    }
+
+    @GetMapping("posts/ajax")
+    public String viewPostsWithAjax() {
+        return "posts/ajax";
+    }
+
+    @GetMapping("/posts.json")
+    public @ResponseBody
+    Iterable<Post> posts() {
+        return postSvc.showAll();
     }
 }
