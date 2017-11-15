@@ -2,21 +2,51 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: main-header('Register Here!')">
 </head>
-<body>
+<body class="way-back">
 <nav th:replace="fragments/navbar :: main-navbar"></nav>
-<h1>Create an account</h1>
-<form th:action="@{/users/register}" method="POST" th:object="${user}">
-    <label for="username">Username</label>
-    <input id="username" th:field="*{username}" />
-
-    <label for="email">Email</label>
-    <input id="email" th:field="*{email}" />
-
-    <label for="password">Password</label>
-    <input id="password" type="password" th:field="*{password}" />
-
-    <input value="Sign me up!" type="submit" />
-</form>
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12 title-banner">
+            <h1 class="title-text">blog.danielstrolle.me</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="background-color col-xs-10 col-xs-offset-1">
+            <div class="info col-xs-12">
+                <h1>Register an Account With Us!</h1>
+                <h3>Register an account to get access to our plethora of posting options!</h3>
+            </div>
+            <form th:action="@{/users/register}" method="POST" th:object="${user}"
+                  class="form col-xs-12 col-md-6 col-md-offset-3">
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <small id="passwordHelpBlock" class="form-text text-muted">
+                        Your username must be at least 3 characters long.
+                    </small>
+                    <input class="form-control" id="username" th:field="*{username}"/>
+                </div>
+                <div>
+                    <p class="error" th:if="${#fields.hasErrors('username')}" th:errors="*{username}"/>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input class="form-control" id="email" th:field="*{email}"/>
+                </div>
+                <div>
+                    <p class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"/>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input class="form-control" id="password" type="password" th:field="*{password}"/>
+                </div>
+                <div>
+                    <p class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"/>
+                </div>
+                <input class="submit btn" value="Sign me up!" type="submit"/>
+            </form>
+        </div>
+    </div>
+</div>
 <footer th:replace="fragments/footer :: main-footer"></footer>
 </body>
 </html>
