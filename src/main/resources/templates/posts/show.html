@@ -2,38 +2,38 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: main-header('View One Post!')">
 </head>
-<body>
+<body class="way-back">
 <nav th:replace="fragments/navbar :: main-navbar"></nav>
 <div class="container">
     <div class="row">
-        <div class="col-xs-4 col-xs-offset-4 display-post">
-            <h1 th:text="${post.title}"></h1>
-            <h2 th:text="${post.body}"></h2>
-            <p th:text="${post.user.email}"></p>
+        <div class="col-xs-12 title-banner">
+            <h1 class="title-text">blog.danielstrolle.me</h1>
         </div>
     </div>
     <div class="row">
-        <div class="col-xs-2 col-xs-offset-5">
-                <a class="btn btn-block btn-primary" th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>
-
-            <form method="post" th:action="${'/posts/' + post.id + '/delete'}">
-                <input class="btn btn-block btn-danger" type="submit" value="Delete This Post"/>
-            </form>
+        <div class="background-color col-xs-10 col-xs-offset-1">
+            <div class="info col-xs-12">
+                <h1>Individually View Our Posts!</h1>
+                <h3 th:text="'You are viewing: ' + ${post.title}"></h3>
+            </div>
+            <div class="col-xs-8 col-xs-offset-2 display-post">
+                <h1 th:text="${post.title}"></h1>
+                <p th:text="${post.body}"></p>
+                <p th:text="'Created by: ' + ${post.user.email}"></p>
+                <div class="row" th:if="${editable}">
+                    <div class="col-xs-2 col-xs-offset-5">
+                        <a class="btn btn-block submit" th:href="${'/posts/' + post.id + '/edit'}">
+                            Edit
+                        </a>
+                        <form method="post" th:action="${'/posts/' + post.id + '/delete'}" id="form">
+                            <input class="btn btn-block btn-danger" type="submit" value="Delete" />
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<!--<div>-->
-<!--<button>-->
-<!--<a th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>-->
-<!--</button>-->
-<!--</div>-->
-<!--<div>-->
-<!--<form method="post" th:action="${'/posts/' + post.id + '/delete'}" class="col-xs-3">-->
-<!--<input class="btn btn-block btn-danger" type="submit" value="Delete This Post"/>-->
-<!--</form>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
 <footer th:replace="fragments/footer :: main-footer"></footer>
 </body>
 </html>

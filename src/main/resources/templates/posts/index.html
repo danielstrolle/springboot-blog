@@ -2,25 +2,37 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: main-header('View All Posts!')">
 </head>
-<body>
+<body class="way-back">
 <nav th:replace="fragments/navbar :: main-navbar"></nav>
 <div class="container">
     <div class="row">
-        <div th:each="post : ${posts}">
-            <div class="display-post col-xs-3 col-xs-offset-1">
-                <h1>
-                    <a th:href="${'/posts/' + post.id}" th:text="${post.title}"></a>
-                </h1>
-                <h2 th:text="${post.body}"></h2>
+        <div class="title-banner">
+            <h1 class="title-text">blog.danielstrolle.me</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="background-color col-xs-10 col-xs-offset-1">
+            <div class="info col-xs-12">
+                <h1>Here Are All Our Posts!</h1>
+                <h3>View all the posts you and our other users have created!</h3>
+            </div>
+            <div th:if="(${error} != null)">
+                <p th:text="${error}"></p>
+            </div>
+            <div class="row col-xs-10 col-xs-offset-1">
+                <div th:each="post : ${posts}">
+                    <div class="display-post index col-md-6 col-md-offset-0 col-xs-8 col-xs-offset-2">
+                        <!--created on date??-->
+                        <h1>
+                            <a th:href="${'/posts/' + post.id}" th:text="${post.title}" class="display-link"></a>
+                        </h1>
+                        <h3 th:text="${post.subheading}" class="display-link">
+                        </h3>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
-    <!--<button>-->
-    <!--<a th:href="${'/posts/' + post.id + '/edit'}" th:text="${'Edit: ' + post.title}"></a>-->
-    <!--</button>-->
-    <!--<form method="post" th:action="${'/posts/' + post.id + '/delete'}" class="col-md-6">-->
-    <!--<input class="btn btn-block btn-danger" type="submit" value="Delete This Post" />-->
-    <!--</form>-->
 </div>
 <footer th:replace="fragments/footer :: main-footer"></footer>
 </body>
