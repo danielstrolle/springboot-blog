@@ -1,4 +1,5 @@
 package com.codeup.blog.springbootblog.models;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.validator.constraints.NotBlank;
 
 import javax.persistence.*;
@@ -16,25 +17,31 @@ public class Post {
     @Size(min = 3, message = "Title must be AT LEAST 3 characters long!")
     private String title;
 
+    @Column
+    private String subheading;
+
     @Column(nullable = false, columnDefinition = "TEXT")
     @NotBlank(message = "Body cannot be empty!")
     private String body;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
+    @JsonManagedReference
     private User user;
 
     public Post() {}
 
-    public Post(String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
+//    public Post(String title, String body) {
+//        this.title = title;
+//        this.body = body;
+//    }
 
-    public Post(String title, String body, Long id) {
+    public Post(String title, String subheading, String body, Long id, User user) {
         this.title = title;
+        this.subheading = subheading;
         this.body = body;
         this.id = id;
+        this.user = user;
     }
 
     public String getBody() {
@@ -56,9 +63,15 @@ public class Post {
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getSubheading() {
+        return subheading;
+    }
+    public void setSubheading(String subheading) {
+        this.subheading = subheading;
     }
 
     public User getUser() {

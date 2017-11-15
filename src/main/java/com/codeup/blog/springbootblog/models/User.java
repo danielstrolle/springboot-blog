@@ -1,7 +1,13 @@
 package com.codeup.blog.springbootblog.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotBlank;
+
 import javax.persistence.Entity;
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.List;
 
 @Entity
@@ -11,12 +17,19 @@ public class User {
     @GeneratedValue
     private long id;
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Username cannot be empty!")
+    @Size(min = 3, message = "Username must be AT LEAST 3 characters long!")
     private String username;
     @Column(nullable = false, unique = true)
+    @NotBlank(message = "Email cannot be empty!")
+    @Email
     private String email;
     @Column(nullable = false)
+    @JsonIgnore
+    @NotBlank(message = "Email cannot be empty!")
     private String password;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user")
+    @JsonBackReference
     private List<Post> posts;
 
     public User () {}
