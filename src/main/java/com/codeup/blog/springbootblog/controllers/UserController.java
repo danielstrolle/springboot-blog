@@ -6,9 +6,12 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.validation.Valid;
 
 @Controller
 public class UserController {
@@ -28,10 +31,15 @@ public class UserController {
     }
 
     @PostMapping("users/register")
-    public String submitRegisterForm (@ModelAttribute User user) {
+    public String submitRegisterForm (@Valid User user, Errors notValid, Model model) {
+        if (notValid.hasErrors()) {
+            model.addAttribute(notValid);
+            model.addAttribute(user);
+            return "users/register";
+        }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userDao.save(user);
-        return "redirect:/posts";
+        return "redirect:/login";
     }
 
 }
