@@ -2,11 +2,51 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head th:replace="fragments/head :: main-header('Create a New Post!')">
 </head>
-<body>
+<body class="way-back">
 <nav th:replace="fragments/navbar :: main-navbar"></nav>
 <div class="container">
-    <div class="col-xs-10 col-xs-offset-1">
-        <h1>WELCOME TO MY INTERNET PAGE</h1>
+    <div class="row">
+        <div class="col-xs-12 title-banner">
+            <h1 class="title-text">blog.danielstrolle.me</h1>
+        </div>
+    </div>
+    <div class="row">
+        <div class="background-color col-xs-12 col-md-10 col-md-offset-1">
+            <div class="info col-xs-12">
+                <h1>Welcome To Your Blogging Headquarters</h1>
+                <div class="info col-xs-10 col-xs-offset-1">
+                    <h4>I was made for you! Created using the Spring framework, I am a mobile-responsive website that
+                        allows
+                        users to view all posts that are in my database, register to create their own posts, and even
+                        edit
+                        or delete their old posts. You're just a few clicks away from seeing what I'm all about!</h4>
+                </div>
+                <div class="col-xs-4 col-xs-offset-4">
+                    <img src="../img/kari-shea-272383.jpg" alt="pic"/>
+                </div>
+                <div class="col-xs-12 title-banner">
+                    <h2>
+                        <a href="/users/register">Register an Account</a>
+                    </h2>
+                </div>
+                <div class="col-xs-4 col-xs-offset-4">
+                    <img src="../img/kari-shea-272383.jpg" alt="pic"/>
+                </div>
+                <div class="col-xs-12 title-banner">
+                    <h2>
+                        <a href="/users/register">Register an Account</a>
+                    </h2>
+                </div>
+                <div class="col-xs-4 col-xs-offset-4">
+                    <img src="../img/kari-shea-272383.jpg" alt="pic"/>
+                </div>
+                <div class="col-xs-12 title-banner">
+                    <h2>
+                        <a href="/users/register">Register an Account</a>
+                    </h2>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <footer th:replace="fragments/footer :: main-footer"></footer>
